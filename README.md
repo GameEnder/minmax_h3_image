@@ -69,5 +69,4 @@ minmax_h3_image_plugin/
 ```
 
 ## License
-
-MIT
+Apache License
