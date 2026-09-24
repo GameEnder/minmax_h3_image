@@ -1,0 +1,11 @@
+{
+  "resolution": "1024x1024",
+  "num_inference_steps": 30,
+  "guidance_scale": 1.0,
+  "flow_shift": 12.0,
+  "sample_solver": "euler",
+  "batch_size": 1,
+  "skip_steps_cache_type": "first_block",
+  "skip_steps_start_step_perc": 25,
+  "skip_steps_multiplier": 0.08
+}

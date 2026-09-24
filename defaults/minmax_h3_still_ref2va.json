@@ -1,0 +1,17 @@
+{
+  "model": {
+    "name": "MiniMax H3 33B Ref2VA Image2Image",
+    "architecture": "minmax_h3_still_ref2va",
+    "description": "MinMax H3 reference still frame generation model (Ref2VA INT8 ConvRot, low VRAM)",
+    "URLs": [
+      "https://huggingface.co/DeepBeepMeep/MiniMax-H3/resolve/main/MiniMax-H3-Ref2VA_int8_convrot.safetensors"
+    ]
+  },
+  "prompt": "A high-quality photorealistic image, detailed, sharp focus",
+  "resolution": "1024x1024",
+  "batch_size": 1,
+  "num_inference_steps": 30,
+  "guidance_scale": 1.0,
+  "flow_shift": 12.0,
+  "sample_solver": "euler"
+}
