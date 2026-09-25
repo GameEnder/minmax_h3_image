@@ -142,12 +142,14 @@ def model_factory(
         raise ValueError("No Qwen3-VL text encoder checkpoint was provided for MinMax H3 Still.")
 
     reference_mode = base_model_type == "minmax_h3_still_ref2va"
+    # NOTE: upstream dropped VAE_dtype from model_factory (VAE dtype is now
+    # pinned internally), so it is accepted here for tolerance but no longer
+    # forwarded. Keep the parameter so older callers don't break.
     pipeline = h3_model_factory(
         model_filename,
         text_encoder_filename,
         qkv_splitting=True,
         dtype=dtype,
-        VAE_dtype=VAE_dtype,
         save_quantized=save_quantized,
         model_type=H3_MODEL_TYPES.get(base_model_type, "minimax_h3_fl2va"),
         reference_mode=reference_mode,
