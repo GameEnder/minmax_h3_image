@@ -1,9 +1,9 @@
 {
   "name": "MinMax H3 Still Model Plugin",
-  "version": "1.0.0",
-  "description": "MinMax H3 single still frame generation model plugin for Wan2GP. Adds MinMax H3 Still to the Main Media Generator Tab.",
-  "author": "Wan2GP User",
-  "date": "2026-09-21",
+  "version": "1.0.2",
+  "description": "MinMax H3 single still frame generation model plugin for Wan2GP.",
+  "author": "GameEnder",
+  "date": "2026-09-25",
   "wan2gp_version": "12.0",
   "url": "",
   "type": "model",
