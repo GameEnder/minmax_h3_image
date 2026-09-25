@@ -87,6 +87,7 @@ class family_handler:
             "image_outputs": True,
             "profile_type": "image",
             "guidance_max_phases": 1,
+            "fps": 24,
             "visible_phases": 0,
             "flow_shift": True,
             "no_negative_prompt": True,
@@ -184,15 +185,6 @@ class family_handler:
                 "fit_into_canvas_image_refs": 0,
                 "any_image_refs_relative_size": True,
                 "image_refs_relative_size": {"min": 50, "max": 400, "step": 1},
-                "guide_custom_choices": {
-                    "choices": [("Generate without a Reference or Control Video", ""), ("Use One Reference Video", "V-U"),
-                                ("Use Two Reference Videos", "V+-U"),
-                                ("Transfer Depth Map From Control Video", "DV"),
-                                ("Provide Generic Control Video", "GV")],
-                    "letters_filter": "GPDEV+-U",
-                    "default": "",
-                    "label": "Reference / Control Video",
-                },
                 "preprocess_video_guide2": True,
                 "reference_video_enabled": True,
                 "reference_video_max_frames": 15 * 24,
@@ -302,6 +294,7 @@ class family_handler:
         ui_defaults.update({
             "image_mode": 1,
             "resolution": "1024x1024",
+            "video_length": 22,
             "num_inference_steps": 30,
             "guidance_scale": 1.0,
             "flow_shift": 12.0,
@@ -317,3 +310,16 @@ class family_handler:
         # over from H3 video siblings) so the UI builds the text2image
         # interface instead of the video-length row (wgp.py image_mode logic).
         ui_defaults["image_mode"] = 1
+        # The video-length slider is hidden in image mode, so users never set
+        # it knowingly: pin the shortest valid window (22 frames) to minimize
+        # motion in the still and cut compute ~5x vs the old 107 default.
+        ui_defaults["video_length"] = 22
+        # Image mode has no video input, so purge any stale video-guide
+        # letters (V/U/G/P/D/E...) that would otherwise demand a Control
+        # Image/Video the user cannot provide. Reference letters (I/K/F)
+        # are preserved.
+        video_prompt_type = ui_defaults.get("video_prompt_type", "")
+        if isinstance(video_prompt_type, str) and video_prompt_type:
+            ui_defaults["video_prompt_type"] = "".join(
+                c for c in video_prompt_type if c not in "GPDEVUL+-"
+            )
